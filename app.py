@@ -109,6 +109,65 @@ def profile():
 
     return render_template("profile.html", student=student)
 
+@app.route("/profile/edit", methods=["GET", "POST"])
+def edit_profile():
+
+    if "student_id" not in session:
+        flash("Please login first.")
+        return redirect(url_for("login"))
+
+    connection = get_db_connection()
+
+    student = connection.execute(
+        "SELECT * FROM students WHERE id = ?",
+        (session["student_id"],)
+    ).fetchone()
+
+    if student is None:
+        connection.close()
+        session.clear()
+        flash("Student account not found.")
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+
+        name = request.form["name"].strip()
+        email = request.form["email"].strip().lower()
+
+        if not name or not email:
+            connection.close()
+            flash("Name and email cannot be empty.")
+            return redirect(url_for("edit_profile"))
+
+        existing_student = connection.execute(
+            "SELECT id FROM students WHERE email = ? AND id != ?",
+            (email, session["student_id"])
+        ).fetchone()
+
+        if existing_student:
+            connection.close()
+            flash("This email is already registered.")
+            return redirect(url_for("edit_profile"))
+
+        connection.execute(
+            """
+            UPDATE students
+            SET name = ?, email = ?
+            WHERE id = ?
+            """,
+            (name, email, session["student_id"])
+        )
+
+        connection.commit()
+        connection.close()
+
+        flash("Profile updated successfully.")
+        return redirect(url_for("profile"))
+
+    connection.close()
+
+    return render_template("edit_profile.html", student=student)
+
 
 @app.route("/logout")
 def logout():

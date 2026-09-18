@@ -322,3 +322,33 @@ body {
         flex-direction: column;
     }
 }
+
+
+/* =========================
+   Edit Profile Form
+   ========================= */
+
+.profile-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-box form label {
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.profile-box form input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.profile-box form button {
+    border: none;
+    cursor: pointer;
+    margin-top: 22px;
+}
