@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile - Eco Campus Tracker</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="profile-container">
+
+        <div class="profile-box">
+
+            <h1>👤 My Profile</h1>
+
+            <div class="profile-info">
+
+                <div class="profile-item">
+                    <span>🆔 Student ID</span>
+                    <strong>{{ student["id"] }}</strong>
+                </div>
+
+                <div class="profile-item">
+                    <span>👤 Full Name</span>
+                    <strong>{{ student["name"] }}</strong>
+                </div>
+
+                <div class="profile-item">
+                    <span>📧 Email</span>
+                    <strong>{{ student["email"] }}</strong>
+                </div>
+
+                <div class="profile-item">
+                    <span>🌱 Eco Points</span>
+                    <strong>{{ student["eco_points"] }}</strong>
+                </div>
+
+            </div>
+
+            <div class="profile-actions">
+
+                <a href="#" class="profile-btn">
+                    ✏️ Edit Profile
+                </a>
+
+                <a href="{{ url_for('dashboard') }}" class="profile-btn secondary">
+                    ↩️ Back to Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
