@@ -139,6 +139,16 @@ def edit_profile():
             flash("Name and email cannot be empty.")
             return redirect(url_for("edit_profile"))
 
+        if len(name) < 2:
+            connection.close()
+            flash("Name must contain at least 2 characters.")
+            return redirect(url_for("edit_profile"))
+
+        if "@" not in email or "." not in email:
+            connection.close()
+            flash("Please enter a valid email address.")
+            return redirect(url_for("edit_profile"))
+
         existing_student = connection.execute(
             "SELECT id FROM students WHERE email = ? AND id != ?",
             (email, session["student_id"])
