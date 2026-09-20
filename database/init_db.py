@@ -17,7 +17,9 @@ CREATE TABLE IF NOT EXISTS students (
     password TEXT NOT NULL,
     eco_points INTEGER DEFAULT 0,
     last_login TEXT,
-    account_status TEXT DEFAULT 'Active'
+    account_status TEXT DEFAULT 'Active',
+    failed_attempts INTEGER DEFAULT 0,
+    locked_until TEXT
 )
 """)
 
@@ -37,10 +39,26 @@ if "account_status" not in column_names:
         "ALTER TABLE students ADD COLUMN account_status TEXT DEFAULT 'Active'"
     )
 
+if "failed_attempts" not in column_names:
+    cursor.execute(
+        "ALTER TABLE students ADD COLUMN failed_attempts INTEGER DEFAULT 0"
+    )
+
+if "locked_until" not in column_names:
+    cursor.execute(
+        "ALTER TABLE students ADD COLUMN locked_until TEXT"
+    )
+
 cursor.execute("""
     UPDATE students
     SET account_status = 'Active'
     WHERE account_status IS NULL
+""")
+
+cursor.execute("""
+    UPDATE students
+    SET failed_attempts = 0
+    WHERE failed_attempts IS NULL
 """)
 
 connection.commit()

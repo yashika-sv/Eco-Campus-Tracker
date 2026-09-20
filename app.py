@@ -66,24 +66,70 @@ def login():
             (email,)
         ).fetchone()
 
-        connection.close()
+        if student is None:
+            connection.close()
+            flash("Invalid email or password.")
+            return redirect(url_for("login"))
 
-        if student and check_password_hash(student["password"], password):
+        # Check temporary login lock
+        if student["locked_until"]:
+            locked_until = datetime.fromisoformat(student["locked_until"])
+
+            if datetime.now() < locked_until:
+                remaining_seconds = int(
+                    (locked_until - datetime.now()).total_seconds()
+                )
+
+                remaining_minutes = max(1, (remaining_seconds + 59) // 60)
+
+                connection.close()
+
+                flash(
+                    f"Too many failed login attempts. "
+                    f"Please try again in about {remaining_minutes} minute(s)."
+                )
+
+                return redirect(url_for("login"))
+
+            # Lock period has ended
+            connection.execute(
+                """
+                UPDATE students
+                SET failed_attempts = 0,
+                    locked_until = NULL
+                WHERE id = ?
+                """,
+                (student["id"],)
+            )
+
+            connection.commit()
+
+            student = connection.execute(
+                "SELECT * FROM students WHERE id = ?",
+                (student["id"],)
+            ).fetchone()
+
+        # Check password
+        if check_password_hash(student["password"], password):
 
             if student["account_status"] != "Active":
-                flash("Your account is inactive. Please contact the administrator.")
+                connection.close()
+                flash(
+                    "Your account is inactive. "
+                    "Please contact the administrator."
+                )
                 return redirect(url_for("login"))
 
             from datetime import datetime
 
             last_login = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-            connection = get_db_connection()
-
             connection.execute(
                 """
                 UPDATE students
-                SET last_login = ?
+                SET last_login = ?,
+                    failed_attempts = 0,
+                    locked_until = NULL
                 WHERE id = ?
                 """,
                 (last_login, student["id"])
@@ -97,12 +143,60 @@ def login():
 
             flash("Login successful!")
             return redirect(url_for("dashboard"))
-        flash("Invalid email or password.")
+
+        # Wrong password
+        failed_attempts = student["failed_attempts"] + 1
+
+        if failed_attempts >= 5:
+
+            locked_until = datetime.now() + timedelta(minutes=5)
+
+            connection.execute(
+                """
+                UPDATE students
+                SET failed_attempts = ?,
+                    locked_until = ?
+                WHERE id = ?
+                """,
+                (
+                    failed_attempts,
+                    locked_until.isoformat(),
+                    student["id"]
+                )
+            )
+
+            connection.commit()
+            connection.close()
+
+            flash(
+                "Too many failed login attempts. "
+                "Your account is locked for 5 minutes."
+            )
+
+            return redirect(url_for("login"))
+
+        connection.execute(
+            """
+            UPDATE students
+            SET failed_attempts = ?
+            WHERE id = ?
+            """,
+            (failed_attempts, student["id"])
+        )
+
+        connection.commit()
+        connection.close()
+
+        attempts_remaining = 5 - failed_attempts
+
+        flash(
+            f"Invalid email or password. "
+            f"{attempts_remaining} attempt(s) remaining."
+        )
+
         return redirect(url_for("login"))
 
     return render_template("login.html")
-
-
 @app.route("/dashboard")
 def dashboard():
 
