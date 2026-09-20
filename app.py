@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime, timedelta
 import sqlite3
 import os
 
@@ -7,13 +8,35 @@ app = Flask(__name__)
 
 app.secret_key = "eco-campus-secret-key"
 
+SESSION_TIMEOUT = timedelta(minutes=30)
+
 DATABASE = os.path.join(os.path.dirname(__file__), "database.db")
+
+
 
 
 def get_db_connection():
     connection = sqlite3.connect(DATABASE)
     connection.row_factory = sqlite3.Row
     return connection
+
+@app.before_request
+def check_session_timeout():
+
+    if "student_id" not in session:
+        return
+
+    last_activity = session.get("last_activity")
+
+    if last_activity:
+        last_activity_time = datetime.fromisoformat(last_activity)
+
+        if datetime.now() - last_activity_time > SESSION_TIMEOUT:
+            session.clear()
+            flash("Your session has expired. Please login again.")
+            return redirect(url_for("login"))
+
+    session["last_activity"] = datetime.now().isoformat()
 
 
 @app.route("/")
@@ -70,10 +93,10 @@ def login():
             connection.close()
 
             session["student_id"] = student["id"]
+            session["last_activity"] = datetime.now().isoformat()
 
             flash("Login successful!")
             return redirect(url_for("dashboard"))
-
         flash("Invalid email or password.")
         return redirect(url_for("login"))
 
