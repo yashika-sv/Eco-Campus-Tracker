@@ -124,6 +124,20 @@ body {
     font-size: 28px;
 }
 
+.dashboard-welcome {
+    margin-bottom: 30px;
+}
+
+.dashboard-welcome h2 {
+    margin-bottom: 8px;
+}
+
+.dashboard-welcome p {
+    margin: 0;
+    color: #666;
+    font-size: 15px;
+}
+
 .dashboard-cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
