@@ -406,3 +406,22 @@ body {
     margin-top: 0;
     padding: 8px 12px;
 }
+
+
+/* Remember Email */
+
+.remember-email {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.remember-email input {
+    width: auto;
+}
+
+.remember-email label {
+    margin: 0;
+    font-weight: normal;
+}

@@ -26,32 +26,44 @@
 
             <form method="POST">
 
-                <label for="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    required
-                >
-
-                <label for="password">Password</label>
-                <div class="password-field">
+    <label for="email">Email</label>
     <input
-        type="password"
-        id="password"
-        name="password"
-        ...
->
-    <button type="button" onclick="togglePassword('password', this)">
-        Show
-    </button>
-</div>
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Enter your email"
+        required
+    >
 
-                <button type="submit">Login</button>
+    <label for="password">Password</label>
 
-            </form>
+    <div class="password-field">
+        <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+        >
 
+        <button type="button" onclick="togglePassword('password', this)">
+            Show
+        </button>
+    </div>
+
+    <div class="remember-email">
+        <input
+            type="checkbox"
+            id="remember_email"
+        >
+        <label for="remember_email">
+            Remember my email
+        </label>
+    </div>
+
+    <button type="submit">Login</button>
+
+</form>
             <p>
                 Don't have an account?
                 <a href="{{ url_for('register') }}">Register</a>
