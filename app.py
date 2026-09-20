@@ -183,6 +183,79 @@ def edit_profile():
     return render_template("edit_profile.html", student=student)
 
 
+@app.route("/profile/change-password", methods=["GET", "POST"])
+def change_password():
+
+    if "student_id" not in session:
+        flash("Please login first.")
+        return redirect(url_for("login"))
+
+    connection = get_db_connection()
+
+    student = connection.execute(
+        "SELECT * FROM students WHERE id = ?",
+        (session["student_id"],)
+    ).fetchone()
+
+    if student is None:
+        connection.close()
+        session.clear()
+        flash("Student account not found.")
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+
+        current_password = request.form["current_password"]
+        new_password = request.form["new_password"]
+        confirm_password = request.form["confirm_password"]
+
+        if not current_password or not new_password or not confirm_password:
+            connection.close()
+            flash("Please fill in all password fields.")
+            return redirect(url_for("change_password"))
+
+        if not check_password_hash(student["password"], current_password):
+            connection.close()
+            flash("Current password is incorrect.")
+            return redirect(url_for("change_password"))
+
+        if len(new_password) < 6:
+            connection.close()
+            flash("New password must contain at least 6 characters.")
+            return redirect(url_for("change_password"))
+
+        if new_password != confirm_password:
+            connection.close()
+            flash("New passwords do not match.")
+            return redirect(url_for("change_password"))
+
+        if new_password == current_password:
+            connection.close()
+            flash("New password must be different from the current password.")
+            return redirect(url_for("change_password"))
+
+        hashed_password = generate_password_hash(new_password)
+
+        connection.execute(
+            """
+            UPDATE students
+            SET password = ?
+            WHERE id = ?
+            """,
+            (hashed_password, session["student_id"])
+        )
+
+        connection.commit()
+        connection.close()
+
+        flash("Password changed successfully.")
+        return redirect(url_for("profile"))
+
+    connection.close()
+
+    return render_template("change_password.html")
+
+
 @app.route("/logout")
 def logout():
 
