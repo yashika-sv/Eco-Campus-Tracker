@@ -259,6 +259,14 @@ body {
     margin-bottom: 30px;
 }
 
+.profile-subtitle {
+    text-align: center;
+    color: #666;
+    margin-top: -18px;
+    margin-bottom: 25px;
+    font-size: 15px;
+}
+
 .profile-info {
     display: flex;
     flex-direction: column;
