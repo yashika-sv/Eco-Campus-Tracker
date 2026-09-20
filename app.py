@@ -48,13 +48,31 @@ def login():
 
         if student and check_password_hash(student["password"], password):
 
-            session["student_id"] = student["id"]
+               from datetime import datetime
 
-            flash("Login successful!")
-            return redirect(url_for("dashboard"))
+    last_login = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        flash("Invalid email or password.")
-        return redirect(url_for("login"))
+    connection = get_db_connection()
+
+    connection.execute(
+        """
+        UPDATE students
+        SET last_login = ?
+        WHERE id = ?
+        """,
+        (last_login, student["id"])
+    )
+
+    connection.commit()
+    connection.close()
+
+    session["student_id"] = student["id"]
+
+    flash("Login successful!")
+    return redirect(url_for("dashboard"))
+
+    flash("Invalid email or password.")
+    return redirect(url_for("login"))
 
     return render_template("login.html")
 

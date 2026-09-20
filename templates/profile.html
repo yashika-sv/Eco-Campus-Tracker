@@ -42,6 +42,14 @@
                     <strong>{{ student["eco_points"] }}</strong>
                 </div>
 
+                <div class="profile-item">
+    <span>🕒 Last Login</span>
+    <strong>
+        {{ student["last_login"] if student["last_login"] else "First login" }}
+    </strong>
+</div>
+
+                
             </div>
 
             <div class="profile-actions">
