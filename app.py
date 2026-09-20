@@ -459,10 +459,23 @@ def register():
             flash("Passwords do not match.")
             return redirect(url_for("register"))
 
-        if len(password) < 6:
-            flash("Password must contain at least 6 characters.")
+        if len(password) < 8:
+           flash("Password must contain at least 8 characters.")
+           return redirect(url_for("register"))
+
+        if not any(char.isupper() for char in password):
+            flash("Password must contain at least one uppercase letter.")
             return redirect(url_for("register"))
 
+        if not any(char.islower() for char in password):
+          flash("Password must contain at least one lowercase letter.")
+        return redirect(url_for("register"))
+
+        if not any(char.isdigit() for char in password):
+          flash("Password must contain at least one number.")
+          return redirect(url_for("register"))
+
+        
         connection = get_db_connection()
 
         existing_student = connection.execute(
