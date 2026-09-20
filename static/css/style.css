@@ -14,6 +14,15 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
+
+    background-image:
+        linear-gradient(rgba(20, 70, 35, 0.25), rgba(20, 70, 35, 0.25)),
+        url("../images/eco-campus-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .auth-box {
