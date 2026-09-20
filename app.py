@@ -33,6 +33,10 @@ def login():
             flash("Please enter email and password.")
             return redirect(url_for("login"))
 
+        if "@" not in email or "." not in email:
+              flash("Please enter a valid email address.")
+              return redirect(url_for("login"))
+
         connection = get_db_connection()
 
         student = connection.execute(
