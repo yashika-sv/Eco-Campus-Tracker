@@ -388,3 +388,21 @@ body {
 .danger-btn:hover {
     background: #b02a37;
 }
+
+
+/* Password Visibility */
+
+.password-field {
+    display: flex;
+    gap: 8px;
+}
+
+.password-field input {
+    flex: 1;
+}
+
+.password-field button {
+    width: auto;
+    margin-top: 0;
+    padding: 8px 12px;
+}

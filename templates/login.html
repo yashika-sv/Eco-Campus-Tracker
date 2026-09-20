@@ -36,13 +36,17 @@
                 >
 
                 <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Enter your password"
-                    required
-                >
+                <div class="password-field">
+    <input
+        type="password"
+        id="password"
+        name="password"
+        ...
+>
+    <button type="button" onclick="togglePassword('password', this)">
+        Show
+    </button>
+</div>
 
                 <button type="submit">Login</button>
 
