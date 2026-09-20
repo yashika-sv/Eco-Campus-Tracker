@@ -14,11 +14,13 @@
 
     <div class="profile-container">
 
-        <h1>👤 My Profile</h1>
+        <div class="profile-box">
 
-<p class="profile-subtitle">Your student account information</p>
+            <h1>👤 My Profile</h1>
 
-<div class="profile-info">
+            <p class="profile-subtitle">
+                Your student account information
+            </p>
 
             <div class="profile-info">
 
@@ -43,13 +45,12 @@
                 </div>
 
                 <div class="profile-item">
-    <span>🕒 Last Login</span>
-    <strong>
-        {{ student["last_login"] if student["last_login"] else "First login" }}
-    </strong>
-</div>
+                    <span>🕒 Last Login</span>
+                    <strong>
+                        {{ student["last_login"] if student["last_login"] else "First login" }}
+                    </strong>
+                </div>
 
-                
             </div>
 
             <div class="profile-actions">
@@ -59,8 +60,18 @@
                 </a>
 
                 <a href="{{ url_for('change_password') }}" class="profile-btn">
-    🔐 Change Password
-</a>
+                    🔐 Change Password
+                </a>
+
+                <form
+                    method="POST"
+                    action="{{ url_for('deactivate_account') }}"
+                    onsubmit="return confirm('Are you sure you want to deactivate your account?');"
+                >
+                    <button type="submit" class="profile-btn danger-btn">
+                        ⚠️ Deactivate Account
+                    </button>
+                </form>
 
                 <a href="{{ url_for('dashboard') }}" class="profile-btn secondary">
                     ↩️ Back to Dashboard

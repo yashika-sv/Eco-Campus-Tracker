@@ -20,7 +20,6 @@ def get_db_connection():
 def home():
     return redirect(url_for("login"))
 
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
 
@@ -34,8 +33,8 @@ def login():
             return redirect(url_for("login"))
 
         if "@" not in email or "." not in email:
-              flash("Please enter a valid email address.")
-              return redirect(url_for("login"))
+            flash("Please enter a valid email address.")
+            return redirect(url_for("login"))
 
         connection = get_db_connection()
 
@@ -48,31 +47,35 @@ def login():
 
         if student and check_password_hash(student["password"], password):
 
-               from datetime import datetime
+            if student["account_status"] != "Active":
+                flash("Your account is inactive. Please contact the administrator.")
+                return redirect(url_for("login"))
 
-    last_login = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            from datetime import datetime
 
-    connection = get_db_connection()
+            last_login = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    connection.execute(
-        """
-        UPDATE students
-        SET last_login = ?
-        WHERE id = ?
-        """,
-        (last_login, student["id"])
-    )
+            connection = get_db_connection()
 
-    connection.commit()
-    connection.close()
+            connection.execute(
+                """
+                UPDATE students
+                SET last_login = ?
+                WHERE id = ?
+                """,
+                (last_login, student["id"])
+            )
 
-    session["student_id"] = student["id"]
+            connection.commit()
+            connection.close()
 
-    flash("Login successful!")
-    return redirect(url_for("dashboard"))
+            session["student_id"] = student["id"]
 
-    flash("Invalid email or password.")
-    return redirect(url_for("login"))
+            flash("Login successful!")
+            return redirect(url_for("dashboard"))
+
+        flash("Invalid email or password.")
+        return redirect(url_for("login"))
 
     return render_template("login.html")
 
@@ -272,6 +275,43 @@ def change_password():
     connection.close()
 
     return render_template("change_password.html")
+
+@app.route("/profile/deactivate", methods=["POST"])
+def deactivate_account():
+
+    if "student_id" not in session:
+        flash("Please login first.")
+        return redirect(url_for("login"))
+
+    connection = get_db_connection()
+
+    student = connection.execute(
+        "SELECT * FROM students WHERE id = ?",
+        (session["student_id"],)
+    ).fetchone()
+
+    if student is None:
+        connection.close()
+        session.clear()
+        flash("Student account not found.")
+        return redirect(url_for("login"))
+
+    connection.execute(
+        """
+        UPDATE students
+        SET account_status = 'Inactive'
+        WHERE id = ?
+        """,
+        (session["student_id"],)
+    )
+
+    connection.commit()
+    connection.close()
+
+    session.clear()
+
+    flash("Your account has been deactivated.")
+    return redirect(url_for("login"))
 
 
 @app.route("/logout")

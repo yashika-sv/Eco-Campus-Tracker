@@ -374,3 +374,17 @@ body {
     cursor: pointer;
     margin-top: 22px;
 }
+
+/* Account Deactivation */
+
+.danger-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.danger-btn:hover {
+    background: #b02a37;
+}
