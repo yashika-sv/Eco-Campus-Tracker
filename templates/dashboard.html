@@ -100,9 +100,18 @@
         </div>
 
         <div>
-            <span>📌 Account Status</span>
-            <strong>{{ student["account_status"] }}</strong>
-        </div>
+    <span>📌 Account Status</span>
+
+    {% if student["account_status"] == "Active" %}
+        <strong class="status-badge status-active">
+            Active
+        </strong>
+    {% else %}
+        <strong class="status-badge status-inactive">
+            Inactive
+        </strong>
+    {% endif %}
+</div>
 
         <div>
             <span>🕒 Last Login</span>
