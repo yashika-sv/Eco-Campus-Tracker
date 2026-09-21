@@ -58,6 +58,33 @@
 
 </div>
 
+<div class="dashboard-profile-summary">
+
+    <h3>👤 Account Overview</h3>
+
+    <div class="dashboard-profile-info">
+
+        <div>
+            <span>📧 Email</span>
+            <strong>{{ student["email"] }}</strong>
+        </div>
+
+        <div>
+            <span>📌 Account Status</span>
+            <strong>{{ student["account_status"] }}</strong>
+        </div>
+
+        <div>
+            <span>🕒 Last Login</span>
+            <strong>
+                {{ student["last_login"] if student["last_login"] else "First login" }}
+            </strong>
+        </div>
+
+    </div>
+
+</div>
+
 
            <div class="dashboard-actions">
 
