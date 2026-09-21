@@ -96,32 +96,49 @@
 
 </div>
 
-<div class="dashboard-profile-summary">
+<div class="student-profile-card">
 
-    <h3>👤 Account Overview</h3>
+    <div class="student-profile-top">
 
-    <div class="dashboard-profile-info">
+        <div class="student-avatar">
+            {{ student["name"][0]|upper }}
+        </div>
 
-        <div>
+        <div class="student-profile-heading">
+            <h3>{{ student["name"] }}</h3>
+            <p>Eco Campus Student</p>
+        </div>
+
+        {% if student["account_status"] == "Active" %}
+            <span class="profile-status active">
+                ● Active
+            </span>
+        {% else %}
+            <span class="profile-status inactive">
+                ● Inactive
+            </span>
+        {% endif %}
+
+    </div>
+
+    <div class="student-profile-details">
+
+        <div class="profile-detail">
+            <span>🆔 Student ID</span>
+            <strong>{{ student["id"] }}</strong>
+        </div>
+
+        <div class="profile-detail">
             <span>📧 Email</span>
             <strong>{{ student["email"] }}</strong>
         </div>
 
-        <div>
-    <span>📌 Account Status</span>
+        <div class="profile-detail">
+            <span>🌱 Eco Points</span>
+            <strong>{{ student["eco_points"] }}</strong>
+        </div>
 
-    {% if student["account_status"] == "Active" %}
-        <strong class="status-badge status-active">
-            Active
-        </strong>
-    {% else %}
-        <strong class="status-badge status-inactive">
-            Inactive
-        </strong>
-    {% endif %}
-</div>
-
-        <div>
+        <div class="profile-detail">
             <span>🕒 Last Login</span>
             <strong>
                 {{ student["last_login"] if student["last_login"] else "First login" }}
@@ -131,7 +148,6 @@
     </div>
 
 </div>
-
 
            <div class="dashboard-actions">
 
