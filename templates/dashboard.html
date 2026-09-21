@@ -121,6 +121,67 @@
 
     </div>
 
+    <div class="dashboard-progress-card">
+
+    <div class="progress-card-header">
+
+        <div>
+            <h3>🌱 Eco Progress</h3>
+            <p>Keep working towards your personal Eco Goal.</p>
+        </div>
+
+        <a href="{{ url_for('eco_goal') }}" class="progress-goal-link">
+            🎯 Manage Goal
+        </a>
+
+    </div>
+
+    <div class="progress-card-stats">
+
+        <div>
+            <span>Current Points</span>
+            <strong>{{ student["eco_points"] }}</strong>
+        </div>
+
+        <div>
+            <span>Goal</span>
+            <strong>{{ student["eco_goal"] }}</strong>
+        </div>
+
+        <div>
+            <span>Progress</span>
+            <strong>
+                {% if student["eco_goal"] > 0 %}
+                    {{ [((student["eco_points"] / student["eco_goal"]) * 100)|int, 100]|min }}%
+                {% else %}
+                    0%
+                {% endif %}
+            </strong>
+        </div>
+
+    </div>
+
+    <div class="dashboard-progress-bar">
+
+        <div
+            class="dashboard-progress-fill"
+            data-progress="{% if student['eco_goal'] > 0 %}{{ [((student['eco_points'] / student['eco_goal']) * 100)|int, 100]|min }}{% else %}0{% endif %}"
+        ></div>
+
+    </div>
+
+    <p class="progress-message">
+        {% if student["eco_points"] >= student["eco_goal"] %}
+            🎉 Goal achieved! Great work!
+        {% elif student["eco_points"] > 0 %}
+            🌿 You're making progress. Keep going!
+        {% else %}
+            🌱 Start earning Eco Points to begin your progress.
+        {% endif %}
+    </p>
+
+</div>
+
     <div class="student-profile-details">
 
         <div class="profile-detail">
@@ -168,6 +229,17 @@
         </main>
 
     </div>
+
+
+    <script>
+    const dashboardProgress =
+        document.querySelector(".dashboard-progress-fill");
+
+    if (dashboardProgress) {
+        const progress = dashboardProgress.dataset.progress;
+        dashboardProgress.style.width = progress + "%";
+    }
+</script>
 
 </body>
 </html>
