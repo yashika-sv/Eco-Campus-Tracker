@@ -481,6 +481,22 @@ body {
         gap: 12px;
     }
 
+        .dashboard-welcome {
+        text-align: center;
+    }
+
+    .dashboard-welcome h2 {
+        line-height: 1.3;
+    }
+
+    .dashboard-welcome p {
+        line-height: 1.5;
+    }
+
+    .dashboard-header {
+        gap: 15px;
+    }
+
 }
 /* Dashboard Eco Message */
 
