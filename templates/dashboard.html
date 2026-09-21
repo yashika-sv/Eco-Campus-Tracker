@@ -34,10 +34,36 @@
         <main class="dashboard-content">
 
             <div class="dashboard-welcome">
-    <h2>Welcome, {{ student["name"] }}! 👋</h2>
-    <p>Student ID: {{ student["id"] }} | Keep up your eco-friendly journey! 🌱</p>
-</div>
 
+    <h2>Welcome, {{ student["name"] }}! 👋</h2>
+
+    <p>
+        Student ID: {{ student["id"] }}
+        | Keep up your eco-friendly journey! 🌱
+    </p>
+
+    {% if student["eco_points"] == 0 %}
+        <p class="eco-message">
+            🌱 Start your journey today by taking your first eco-friendly action!
+        </p>
+
+    {% elif student["eco_points"] < 50 %}
+        <p class="eco-message">
+            🌿 You're off to a great start! Keep going and earn more Eco Points.
+        </p>
+
+    {% elif student["eco_points"] < 100 %}
+        <p class="eco-message">
+            🌳 Great progress! Your efforts are making a difference.
+        </p>
+
+    {% else %}
+        <p class="eco-message">
+            🌍 Amazing work! You're making a strong contribution to a greener campus.
+        </p>
+    {% endif %}
+
+</div>
             <div class="dashboard-cards">
 
     <div class="dashboard-card">
