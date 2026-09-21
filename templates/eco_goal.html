@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Eco Goal - Eco Campus Tracker</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="profile-container">
+
+        <div class="profile-box">
+
+            <h1>🎯 My Eco Goal</h1>
+
+            <p class="profile-subtitle">
+                Set a personal Eco Point target and track your progress.
+            </p>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="message">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="eco-goal-info">
+
+                <div class="goal-stat">
+                    <span>🌱 Current Eco Points</span>
+                    <strong>{{ student["eco_points"] }}</strong>
+                </div>
+
+                <div class="goal-stat">
+                    <span>🎯 Current Goal</span>
+                    <strong>{{ student["eco_goal"] }} points</strong>
+                </div>
+
+            </div>
+
+            <form method="POST" class="eco-goal-form">
+
+                <label for="eco_goal">
+                    Set Your Eco Point Goal
+                </label>
+
+                <input
+                    type="number"
+                    id="eco_goal"
+                    name="eco_goal"
+                    min="10"
+                    max="10000"
+                    value="{{ student['eco_goal'] }}"
+                    required
+                >
+
+                <button type="submit" class="profile-btn">
+                    💾 Save Eco Goal
+                </button>
+
+            </form>
+
+            <div class="goal-progress">
+
+                <div class="goal-progress-header">
+                    <span>Progress</span>
+                    <strong>{{ progress }}%</strong>
+                </div>
+
+                <div class="progress-bar">
+                    <div
+    class="progress-fill"
+    data-progress="{{ progress }}"
+></div>
+                </div>
+
+                <p>
+                    {{ student["eco_points"] }} /
+                    {{ student["eco_goal"] }} Eco Points
+                </p>
+
+            </div>
+
+            <div class="profile-actions">
+
+                <a
+                    href="{{ url_for('dashboard') }}"
+                    class="profile-btn secondary"
+                >
+                    ↩️ Back to Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+    const progressBar = document.querySelector(".progress-fill");
+    const progress = progressBar.dataset.progress;
+
+    progressBar.style.width = progress + "%";
+</script>
+
+</body>
+
+</html>

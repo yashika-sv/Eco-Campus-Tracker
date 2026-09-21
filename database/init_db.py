@@ -49,6 +49,11 @@ if "locked_until" not in column_names:
         "ALTER TABLE students ADD COLUMN locked_until TEXT"
     )
 
+if "eco_goal" not in column_names:
+    cursor.execute(
+        "ALTER TABLE students ADD COLUMN eco_goal INTEGER DEFAULT 100"
+    )
+
 cursor.execute("""
     UPDATE students
     SET account_status = 'Active'

@@ -228,6 +228,82 @@ def dashboard():
         pending_count=pending_count
     )
 
+
+@app.route("/eco-goal", methods=["GET", "POST"])
+def eco_goal():
+
+    if "student_id" not in session:
+        flash("Please login to access your eco goal.")
+        return redirect(url_for("login"))
+
+    connection = get_db_connection()
+
+    student = connection.execute(
+        "SELECT * FROM students WHERE id = ?",
+        (session["student_id"],)
+    ).fetchone()
+
+    if student is None:
+        connection.close()
+        session.clear()
+        flash("Student account not found.")
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+
+        goal_value = request.form.get("eco_goal", "").strip()
+
+        if not goal_value:
+            connection.close()
+            flash("Please enter an Eco Point goal.")
+            return redirect(url_for("eco_goal"))
+
+        try:
+            goal_value = int(goal_value)
+        except ValueError:
+            connection.close()
+            flash("Eco Goal must be a valid number.")
+            return redirect(url_for("eco_goal"))
+
+        if goal_value < 10 or goal_value > 10000:
+            connection.close()
+            flash("Eco Goal must be between 10 and 10,000 points.")
+            return redirect(url_for("eco_goal"))
+
+        connection.execute(
+            """
+            UPDATE students
+            SET eco_goal = ?
+            WHERE id = ?
+            """,
+            (goal_value, session["student_id"])
+        )
+
+        connection.commit()
+        connection.close()
+
+        flash("Your Eco Goal has been updated successfully!")
+        return redirect(url_for("eco_goal"))
+
+    eco_goal = student["eco_goal"]
+
+    if eco_goal <= 0:
+        progress = 0
+    else:
+        progress = int(
+            (student["eco_points"] / eco_goal) * 100
+        )
+
+    progress = min(progress, 100)
+
+    connection.close()
+
+    return render_template(
+        "eco_goal.html",
+        student=student,
+        progress=progress
+    )
+
 @app.route("/profile")
 def profile():
 
