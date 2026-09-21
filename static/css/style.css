@@ -943,3 +943,1308 @@ body {
     }
 
 }
+
+/* =========================================================
+   MODERN ECO CAMPUS DASHBOARD
+   ========================================================= */
+
+
+/* Dashboard Page */
+
+.dashboard-page {
+    margin: 0;
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(240, 250, 242, 0.92),
+            rgba(235, 248, 238, 0.96)
+        ),
+        url("../images/eco-campus-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    color: #123d2a;
+}
+
+
+/* =========================================================
+   TOP NAVIGATION
+   ========================================================= */
+
+.dashboard-navbar {
+
+    width: 100%;
+    min-height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 5%;
+
+    box-sizing: border-box;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border-bottom: 1px solid rgba(46, 125, 50, 0.08);
+
+    box-shadow:
+        0 3px 15px rgba(30, 90, 45, 0.06);
+
+    position: relative;
+    z-index: 10;
+}
+
+
+/* Brand */
+
+.navbar-brand {
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    color: #176b35;
+}
+
+.brand-leaf {
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e5f6e8;
+
+    font-size: 23px;
+}
+
+.navbar-brand h1 {
+
+    margin: 0;
+
+    font-size: 20px;
+
+    line-height: 1.1;
+
+    color: #176b35;
+}
+
+.navbar-brand span {
+
+    font-size: 14px;
+
+    color: #568064;
+}
+
+
+/* Navigation Links */
+
+.navbar-links {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.nav-link {
+
+    padding: 10px 15px;
+
+    border-radius: 22px;
+
+    color: #234f39;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.nav-link:hover {
+
+    background: #edf8ef;
+
+    color: #19733a;
+
+    transform: translateY(-1px);
+}
+
+.nav-link.active {
+
+    background: #e2f5e5;
+
+    color: #18723a;
+}
+
+
+/* User */
+
+.navbar-user {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    font-weight: 600;
+
+    color: #234f39;
+
+    font-size: 14px;
+}
+
+.user-avatar-small {
+
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #238b45;
+
+    color: white;
+
+    font-weight: bold;
+}
+
+.nav-logout {
+
+    margin-left: 10px;
+
+    color: #c62828;
+
+    text-decoration: none;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   MAIN DASHBOARD
+   ========================================================= */
+
+.dashboard-main {
+
+    width: 92%;
+
+    max-width: 1500px;
+
+    margin: 30px auto 50px;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.dashboard-hero {
+
+    position: relative;
+
+    min-height: 315px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 35px;
+
+    padding: 42px 55px;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(208, 244, 181, 0.97),
+            rgba(235, 250, 221, 0.92),
+            rgba(188, 232, 161, 0.88)
+        ),
+        url("../images/eco-campus-bg.png");
+
+    background-size: cover;
+
+    background-position: center;
+
+    box-shadow:
+        0 12px 35px rgba(39, 112, 54, 0.13);
+}
+
+
+/* Decorative leaves */
+
+.hero-decoration {
+
+    position: absolute;
+
+    opacity: 0.28;
+
+    pointer-events: none;
+}
+
+.hero-leaf-one {
+
+    left: 10px;
+    bottom: 10px;
+
+    font-size: 80px;
+
+    transform: rotate(-20deg);
+}
+
+.hero-leaf-two {
+
+    right: 35%;
+
+    bottom: -15px;
+
+    font-size: 75px;
+
+    transform: rotate(20deg);
+}
+
+
+/* Hero Content */
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 700px;
+}
+
+.hero-label {
+
+    display: inline-block;
+
+    margin-bottom: 12px;
+
+    color: #176d37;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.hero-content h2 {
+
+    margin: 0 0 12px;
+
+    color: #123f29;
+
+    font-size: 38px;
+
+    line-height: 1.15;
+}
+
+.hero-content p {
+
+    max-width: 650px;
+
+    margin: 0 0 25px;
+
+    color: #285d3f;
+
+    font-size: 17px;
+
+    line-height: 1.6;
+}
+
+
+/* Goal Button */
+
+.hero-goal-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 22px;
+
+    border-radius: 25px;
+
+    background: #25853d;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 7px 16px rgba(37, 133, 61, 0.22);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.hero-goal-btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(37, 133, 61, 0.3);
+}
+
+
+/* =========================================================
+   ECO GOAL CARD
+   ========================================================= */
+
+.hero-goal-card {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 310px;
+
+    min-width: 270px;
+
+    padding: 27px;
+
+    box-sizing: border-box;
+
+    border-radius: 22px;
+
+    background: rgba(255, 255, 255, 0.92);
+
+    box-shadow:
+        0 10px 30px rgba(40, 100, 50, 0.12);
+}
+
+.goal-card-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 20px;
+}
+
+.goal-card-title span {
+
+    font-size: 27px;
+}
+
+.goal-card-title h3 {
+
+    margin: 0;
+
+    color: #164d34;
+
+    font-size: 20px;
+}
+
+.goal-card-content {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.goal-points {
+
+    color: #166634;
+
+    font-size: 38px;
+
+    font-weight: 800;
+}
+
+.goal-points span {
+
+    color: #638375;
+
+    font-size: 21px;
+}
+
+.goal-card-content p {
+
+    margin: 5px 0 0;
+
+    color: #60796b;
+
+    font-size: 14px;
+}
+
+
+/* Goal Circle */
+
+.goal-circle {
+
+    width: 95px;
+    height: 95px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        conic-gradient(
+            #31a24c 0deg,
+            #31a24c 0deg,
+            #d9eee0 0deg,
+            #d9eee0 360deg
+        );
+}
+
+.goal-circle-inner {
+
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: #26783e;
+
+    font-size: 17px;
+
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+   ========================================================= */
+
+.dashboard-summary {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 22px;
+
+    margin-top: 30px;
+}
+
+.summary-card {
+
+    position: relative;
+
+    min-height: 125px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 17px;
+
+    padding: 22px;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f4fbf5
+        );
+
+    border: 1px solid #e4f1e6;
+
+    box-shadow:
+        0 8px 22px rgba(35, 105, 52, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.summary-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 12px 27px rgba(35, 105, 52, 0.13);
+}
+
+.summary-icon {
+
+    width: 55px;
+    height: 55px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e1f4e4;
+
+    font-size: 25px;
+}
+
+.summary-content {
+
+    position: relative;
+
+    z-index: 2;
+}
+
+.summary-content span {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #668173;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+.summary-content strong {
+
+    color: #164b32;
+
+    font-size: 25px;
+}
+
+.summary-leaf {
+
+    position: absolute;
+
+    right: 8px;
+
+    bottom: -8px;
+
+    opacity: 0.18;
+
+    font-size: 55px;
+}
+
+
+/* =========================================================
+   MODERN PROFILE CARD
+   ========================================================= */
+
+.modern-profile-card {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-top: 30px;
+
+    padding: 30px 35px;
+
+    box-sizing: border-box;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f5fbf6
+        );
+
+    border: 1px solid #e1efe3;
+
+    box-shadow:
+        0 8px 25px rgba(40, 105, 53, 0.08);
+}
+
+.profile-main {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    min-width: 280px;
+}
+
+.large-student-avatar {
+
+    width: 82px;
+    height: 82px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #238a43,
+            #17652f
+        );
+
+    color: white;
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 8px 17px rgba(35, 138, 67, 0.22);
+}
+
+.profile-name h3 {
+
+    margin: 0 0 4px;
+
+    color: #153f2c;
+
+    font-size: 25px;
+}
+
+.profile-name p {
+
+    margin: 0 0 9px;
+
+    color: #698173;
+
+    font-size: 14px;
+}
+
+.modern-status {
+
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+.modern-status.active {
+
+    background: #e1f5e5;
+
+    color: #20803e;
+}
+
+.modern-status.inactive {
+
+    background: #ffebee;
+
+    color: #c62828;
+}
+
+
+/* Profile Details */
+
+.profile-details {
+
+    flex: 1;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr 1.2fr;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+.profile-detail-item {
+
+    padding-left: 25px;
+
+    border-left: 1px solid #dce9df;
+}
+
+.profile-detail-item span {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #6b8375;
+
+    font-size: 13px;
+}
+
+.profile-detail-item strong {
+
+    display: block;
+
+    color: #204d37;
+
+    font-size: 14px;
+
+    word-break: break-word;
+}
+
+
+/* Profile Message */
+
+.profile-message {
+
+    min-height: 95px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 10px 15px;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e3f7e5,
+            #d7f0d9
+        );
+
+    color: #24733b;
+
+    text-align: center;
+}
+
+.profile-message p {
+
+    margin: 0;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   ECO PROGRESS
+   ========================================================= */
+
+.modern-progress-card {
+
+    margin-top: 30px;
+
+    padding: 30px 35px;
+
+    border-radius: 22px;
+
+    background: white;
+
+    border: 1px solid #e1efe3;
+
+    box-shadow:
+        0 8px 25px rgba(40, 105, 53, 0.08);
+}
+
+.progress-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 22px;
+}
+
+.progress-label {
+
+    color: #278043;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.progress-heading h3 {
+
+    margin: 5px 0;
+
+    color: #164b32;
+
+    font-size: 23px;
+}
+
+.progress-heading p {
+
+    margin: 0;
+
+    color: #6a8274;
+
+    font-size: 14px;
+}
+
+.manage-goal-btn {
+
+    padding: 10px 17px;
+
+    border-radius: 20px;
+
+    background: #e4f5e6;
+
+    color: #23743b;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+/* Progress Stats */
+
+.progress-stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.progress-stats div {
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background: #f5faf6;
+}
+
+.progress-stats span {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #6c8275;
+
+    font-size: 13px;
+}
+
+.progress-stats strong {
+
+    color: #1d6238;
+
+    font-size: 21px;
+}
+
+
+/* Progress Bar */
+
+.modern-progress-bar {
+
+    width: 100%;
+
+    height: 13px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: #e2eee5;
+}
+
+.modern-progress-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #25883f,
+            #55b962
+        );
+
+    transition:
+        width 0.7s ease;
+}
+
+.progress-message {
+
+    margin: 12px 0 0;
+
+    color: #50705e;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   BOTTOM MESSAGE
+   ========================================================= */
+
+.dashboard-bottom-message {
+
+    min-height: 110px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    margin-top: 30px;
+
+    padding: 25px;
+
+    box-sizing: border-box;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dff5e1,
+            #effaf0
+        );
+
+    color: #24733b;
+
+    text-align: center;
+}
+
+.dashboard-bottom-message span {
+
+    font-size: 35px;
+
+    opacity: 0.7;
+}
+
+.dashboard-bottom-message h3 {
+
+    margin: 0 0 5px;
+
+    font-size: 21px;
+}
+
+.dashboard-bottom-message p {
+
+    margin: 0;
+
+    color: #64806d;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+    .navbar-links {
+
+        gap: 2px;
+    }
+
+    .nav-link {
+
+        padding: 9px 10px;
+
+        font-size: 13px;
+    }
+
+    .navbar-user span {
+
+        display: none;
+    }
+
+    .dashboard-summary {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .modern-profile-card {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .dashboard-navbar {
+
+        flex-wrap: wrap;
+
+        gap: 12px;
+
+        padding: 15px 5%;
+    }
+
+    .navbar-links {
+
+        order: 3;
+
+        width: 100%;
+
+        justify-content: center;
+
+        overflow-x: auto;
+    }
+
+    .dashboard-hero {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        padding: 35px 25px;
+    }
+
+    .hero-content h2 {
+
+        font-size: 30px;
+    }
+
+    .hero-goal-card {
+
+        width: 100%;
+
+        min-width: 0;
+    }
+
+    .profile-details {
+
+        grid-template-columns: 1fr;
+    }
+
+    .profile-detail-item {
+
+        padding-left: 0;
+
+        padding-top: 15px;
+
+        border-left: none;
+
+        border-top: 1px solid #dce9df;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .dashboard-main {
+
+        width: 94%;
+
+        margin-top: 20px;
+    }
+
+    .navbar-brand h1 {
+
+        font-size: 17px;
+    }
+
+    .navbar-brand span {
+
+        font-size: 12px;
+    }
+
+    .dashboard-navbar {
+
+        min-height: auto;
+    }
+
+    .navbar-links {
+
+        justify-content: flex-start;
+    }
+
+    .nav-link {
+
+        white-space: nowrap;
+
+        font-size: 12px;
+    }
+
+    .dashboard-hero {
+
+        border-radius: 18px;
+
+        padding: 28px 20px;
+    }
+
+    .hero-content h2 {
+
+        font-size: 26px;
+    }
+
+    .hero-content p {
+
+        font-size: 15px;
+    }
+
+    .goal-points {
+
+        font-size: 31px;
+    }
+
+    .goal-circle {
+
+        width: 80px;
+        height: 80px;
+    }
+
+    .goal-circle-inner {
+
+        width: 61px;
+        height: 61px;
+    }
+
+    .dashboard-summary {
+
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .summary-card {
+
+        min-height: 105px;
+    }
+
+    .modern-profile-card {
+
+        padding: 25px 20px;
+    }
+
+    .profile-main {
+
+        min-width: 0;
+    }
+
+    .large-student-avatar {
+
+        width: 65px;
+        height: 65px;
+
+        font-size: 26px;
+    }
+
+    .profile-name h3 {
+
+        font-size: 21px;
+    }
+
+    .modern-progress-card {
+
+        padding: 25px 20px;
+    }
+
+    .progress-heading {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .progress-stats {
+
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-bottom-message {
+
+        gap: 10px;
+    }
+
+    .dashboard-bottom-message span {
+
+        font-size: 25px;
+    }
+
+}

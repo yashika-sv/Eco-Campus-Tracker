@@ -1,245 +1,519 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Student Dashboard - Eco Campus Tracker</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
 </head>
 
-<body>
+<body class="dashboard-page">
 
-    <div class="dashboard-container">
+    <!-- Top Navigation -->
 
-        <header class="dashboard-header">
+    <nav class="dashboard-navbar">
 
-            <div>
-                <h1>🌱 Eco Campus Tracker</h1>
-                <p>Student Dashboard</p>
+        <div class="navbar-brand">
+
+            <div class="brand-leaf">
+                🌿
             </div>
 
+            <div>
+                <h1>Eco Campus</h1>
+                <span>Tracker</span>
+            </div>
+
+        </div>
+
+
+        <div class="navbar-links">
+
+            <a href="{{ url_for('dashboard') }}" class="nav-link active">
+                🏠 Dashboard
+            </a>
+
+            <a href="{{ url_for('profile') }}" class="nav-link">
+                👤 My Profile
+            </a>
+
+            <a href="{{ url_for('eco_goal') }}" class="nav-link">
+                🎯 My Eco Goal
+            </a>
+
+            <a href="#" class="nav-link">
+                🌿 Activities
+            </a>
+
+        </div>
+
+
+        <div class="navbar-user">
+
+            <div class="user-avatar-small">
+                {{ student["name"][0]|upper }}
+            </div>
+
+            <span>{{ student["name"] }}</span>
+
             <a
-    href="{{ url_for('logout') }}"
-    class="logout-btn"
-    onclick="return confirm('Are you sure you want to logout?');"
->
-    Logout
-</a>
+                href="{{ url_for('logout') }}"
+                class="nav-logout"
+                onclick="return confirm('Are you sure you want to logout?');"
+            >
+                Logout
+            </a>
 
-        </header>
-
-
-        <main class="dashboard-content">
-
-            <div class="dashboard-hero">
-
-    <div class="hero-content">
-
-        <span class="hero-label">🌱 ECO CAMPUS TRACKER</span>
-
-        <h2>
-            Welcome back, {{ student["name"] }}! 👋
-        </h2>
-
-        <p>
-            Keep making small eco-friendly choices and help build
-            a greener campus together. 🌍
-        </p>
-
-        <a href="{{ url_for('eco_goal') }}" class="hero-goal-btn">
-            🎯 View My Eco Goal
-        </a>
-
-    </div>
-
-    <div class="hero-goal">
-
-        <div class="hero-goal-icon">
-            🌿
         </div>
 
-        <h3>Eco Goal</h3>
+    </nav>
 
-        <div class="hero-points">
-            {{ student["eco_points"] }}
-            <span>/ {{ student["eco_goal"] }}</span>
-        </div>
 
-        <p>Eco Points</p>
+    <main class="dashboard-main">
 
-    </div>
 
-</div>
-            <div class="dashboard-cards">
+        <!-- Hero Section -->
 
-    <div class="dashboard-card">
-        <h3>🆔 Student ID</h3>
-        <p>{{ student["id"] }}</p>
-    </div>
+        <section class="dashboard-hero">
 
-    <div class="dashboard-card">
-        <h3>🌱 Eco Points</h3>
-        <p>{{ student["eco_points"] }}</p>
-    </div>
+            <div class="hero-decoration hero-leaf-one">
+                🌿
+            </div>
 
-    <div class="dashboard-card">
-        <h3>📊 Activities</h3>
-        <p>{{ activity_count }}</p>
-    </div>
+            <div class="hero-decoration hero-leaf-two">
+                🍃
+            </div>
 
-    <div class="dashboard-card">
-        <h3>⏳ Pending</h3>
-        <p>{{ pending_count }}</p>
-    </div>
+            <div class="hero-content">
 
-</div>
+                <span class="hero-label">
+                    🌱 ECO CAMPUS TRACKER
+                </span>
 
-<div class="student-profile-card">
+                <h2>
+                    Welcome back, {{ student["name"] }}! 👋
+                </h2>
 
-    <div class="student-profile-top">
+                <p>
+                    Keep making small eco-friendly choices and help build
+                    a greener campus together. 🌍
+                </p>
 
-        <div class="student-avatar">
-            {{ student["name"][0]|upper }}
-        </div>
+                <a
+                    href="{{ url_for('eco_goal') }}"
+                    class="hero-goal-btn"
+                >
+                    🎯 View My Eco Goal
+                    <span>→</span>
+                </a>
 
-        <div class="student-profile-heading">
-            <h3>{{ student["name"] }}</h3>
-            <p>Eco Campus Student</p>
-        </div>
+            </div>
 
-        {% if student["account_status"] == "Active" %}
-            <span class="profile-status active">
-                ● Active
-            </span>
-        {% else %}
-            <span class="profile-status inactive">
-                ● Inactive
-            </span>
-        {% endif %}
 
-    </div>
+            <!-- Eco Goal -->
 
-    <div class="dashboard-progress-card">
+            <div class="hero-goal-card">
 
-    <div class="progress-card-header">
+                <div class="goal-card-title">
+                    <span>🌿</span>
+                    <h3>Eco Goal</h3>
+                </div>
 
-        <div>
-            <h3>🌱 Eco Progress</h3>
-            <p>Keep working towards your personal Eco Goal.</p>
-        </div>
+                <div class="goal-card-content">
 
-        <a href="{{ url_for('eco_goal') }}" class="progress-goal-link">
-            🎯 Manage Goal
-        </a>
+                    <div>
 
-    </div>
+                        <div class="goal-points">
 
-    <div class="progress-card-stats">
+                            {{ student["eco_points"] }}
 
-        <div>
-            <span>Current Points</span>
-            <strong>{{ student["eco_points"] }}</strong>
-        </div>
+                            <span>
+                                /
+                                {{ student["eco_goal"] }}
+                            </span>
 
-        <div>
-            <span>Goal</span>
-            <strong>{{ student["eco_goal"] }}</strong>
-        </div>
+                        </div>
 
-        <div>
-            <span>Progress</span>
-            <strong>
-                {% if student["eco_goal"] > 0 %}
-                    {{ [((student["eco_points"] / student["eco_goal"]) * 100)|int, 100]|min }}%
+                        <p>Eco Points</p>
+
+                    </div>
+
+
+                    <div class="goal-circle">
+
+                        <div class="goal-circle-inner">
+
+                            {% if student["eco_goal"] > 0 %}
+
+                                {{ [((student["eco_points"] / student["eco_goal"]) * 100)|int, 100]|min }}%
+
+                            {% else %}
+
+                                0%
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Summary Cards -->
+
+        <section class="dashboard-summary">
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    🆔
+                </div>
+
+                <div class="summary-content">
+
+                    <span>Student ID</span>
+
+                    <strong>
+                        {{ student["id"] }}
+                    </strong>
+
+                </div>
+
+                <div class="summary-leaf">
+                    🍃
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    🌱
+                </div>
+
+                <div class="summary-content">
+
+                    <span>Eco Points</span>
+
+                    <strong>
+                        {{ student["eco_points"] }}
+                    </strong>
+
+                </div>
+
+                <div class="summary-leaf">
+                    🌿
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    📊
+                </div>
+
+                <div class="summary-content">
+
+                    <span>Activities</span>
+
+                    <strong>
+                        {{ activity_count }}
+                    </strong>
+
+                </div>
+
+                <div class="summary-leaf">
+                    🍃
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    ⏳
+                </div>
+
+                <div class="summary-content">
+
+                    <span>Pending</span>
+
+                    <strong>
+                        {{ pending_count }}
+                    </strong>
+
+                </div>
+
+                <div class="summary-leaf">
+                    🌱
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Student Profile -->
+
+        <section class="modern-profile-card">
+
+
+            <div class="profile-main">
+
+                <div class="large-student-avatar">
+                    {{ student["name"][0]|upper }}
+                </div>
+
+
+                <div class="profile-name">
+
+                    <h3>
+                        {{ student["name"] }}
+                    </h3>
+
+                    <p>
+                        Eco Campus Student
+                    </p>
+
+                    {% if student["account_status"] == "Active" %}
+
+                        <span class="modern-status active">
+                            ● Active
+                        </span>
+
+                    {% else %}
+
+                        <span class="modern-status inactive">
+                            ● Inactive
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="profile-details">
+
+
+                <div class="profile-detail-item">
+
+                    <span>📧 Email</span>
+
+                    <strong>
+                        {{ student["email"] }}
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-detail-item">
+
+                    <span>🕒 Last Login</span>
+
+                    <strong>
+                        {{ student["last_login"] if student["last_login"] else "First login" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-message">
+
+                    <span>🌿</span>
+
+                    <p>
+                        Small actions<br>
+                        make a big impact
+                    </p>
+
+                    <span>🍃</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Eco Progress -->
+
+        <section class="modern-progress-card">
+
+            <div class="progress-heading">
+
+                <div>
+
+                    <span class="progress-label">
+                        🌱 YOUR ECO JOURNEY
+                    </span>
+
+                    <h3>
+                        Eco Progress
+                    </h3>
+
+                    <p>
+                        Keep working towards your personal Eco Goal.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{{ url_for('eco_goal') }}"
+                    class="manage-goal-btn"
+                >
+                    🎯 Manage Goal →
+                </a>
+
+            </div>
+
+
+            <div class="progress-stats">
+
+
+                <div>
+
+                    <span>Current Points</span>
+
+                    <strong>
+                        {{ student["eco_points"] }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>Goal</span>
+
+                    <strong>
+                        {{ student["eco_goal"] }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>Progress</span>
+
+                    <strong>
+
+                        {% if student["eco_goal"] > 0 %}
+
+                            {{ [((student["eco_points"] / student["eco_goal"]) * 100)|int, 100]|min }}%
+
+                        {% else %}
+
+                            0%
+
+                        {% endif %}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="modern-progress-bar">
+
+                <div
+                    class="modern-progress-fill"
+                    data-progress="{% if student['eco_goal'] > 0 %}{{ [((student['eco_points'] / student['eco_goal']) * 100)|int, 100]|min }}{% else %}0{% endif %}"
+                ></div>
+
+            </div>
+
+
+            <p class="progress-message">
+
+                {% if student["eco_points"] >= student["eco_goal"] %}
+
+                    🎉 Amazing! You've reached your Eco Goal!
+
+                {% elif student["eco_points"] > 0 %}
+
+                    🌿 You're making progress. Keep going!
+
                 {% else %}
-                    0%
+
+                    🌱 Start your eco journey and earn your first Eco Points!
+
                 {% endif %}
-            </strong>
-        </div>
 
-    </div>
+            </p>
 
-    <div class="dashboard-progress-bar">
+        </section>
 
-        <div
-            class="dashboard-progress-fill"
-            data-progress="{% if student['eco_goal'] > 0 %}{{ [((student['eco_points'] / student['eco_goal']) * 100)|int, 100]|min }}{% else %}0{% endif %}"
-        ></div>
 
-    </div>
 
-    <p class="progress-message">
-        {% if student["eco_points"] >= student["eco_goal"] %}
-            🎉 Goal achieved! Great work!
-        {% elif student["eco_points"] > 0 %}
-            🌿 You're making progress. Keep going!
-        {% else %}
-            🌱 Start earning Eco Points to begin your progress.
-        {% endif %}
-    </p>
+        <!-- Dashboard Footer Message -->
 
-</div>
+        <section class="dashboard-bottom-message">
 
-    <div class="student-profile-details">
+            <span>🌿</span>
 
-        <div class="profile-detail">
-            <span>🆔 Student ID</span>
-            <strong>{{ student["id"] }}</strong>
-        </div>
+            <div>
 
-        <div class="profile-detail">
-            <span>📧 Email</span>
-            <strong>{{ student["email"] }}</strong>
-        </div>
+                <h3>
+                    Every small action counts.
+                </h3>
 
-        <div class="profile-detail">
-            <span>🌱 Eco Points</span>
-            <strong>{{ student["eco_points"] }}</strong>
-        </div>
+                <p>
+                    Together, we can make our campus greener.
+                </p>
 
-        <div class="profile-detail">
-            <span>🕒 Last Login</span>
-            <strong>
-                {{ student["last_login"] if student["last_login"] else "First login" }}
-            </strong>
-        </div>
+            </div>
 
-    </div>
+            <span>🌱</span>
 
-</div>
+        </section>
 
-           <div class="dashboard-actions">
 
-    <a href="#" class="dashboard-link">
-        🌿 Activities
-    </a>
-
-    <a href="{{ url_for('eco_goal') }}" class="dashboard-link">
-        🎯 My Eco Goal
-    </a>
-
-    <a href="{{ url_for('profile') }}" class="dashboard-link">
-        👤 My Profile
-    </a>
-
-</div>
-
-        </main>
-
-    </div>
+    </main>
 
 
     <script>
-    const dashboardProgress =
-        document.querySelector(".dashboard-progress-fill");
 
-    if (dashboardProgress) {
-        const progress = dashboardProgress.dataset.progress;
-        dashboardProgress.style.width = progress + "%";
-    }
-</script>
+        const progressBar =
+            document.querySelector(".modern-progress-fill");
+
+        if (progressBar) {
+
+            const progress =
+                progressBar.dataset.progress;
+
+            progressBar.style.width =
+                progress + "%";
+
+        }
+
+    </script>
+
 
 </body>
+
 </html>
