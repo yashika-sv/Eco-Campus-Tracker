@@ -65,11 +65,11 @@ cursor.execute("""
     SET failed_attempts = 0
     WHERE failed_attempts IS NULL
 """)
-# ==========================================
-# MEMBER 3: LEADERBOARD & CHALLENGES TABLES
-# ==========================================
 
-cursor.execute("""
+# ==========================================
+# MEMBER 3: CHALLENGES & BADGES TABLES
+# ==========================================
+connection.execute('''
 CREATE TABLE IF NOT EXISTS challenges (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
@@ -77,30 +77,23 @@ CREATE TABLE IF NOT EXISTS challenges (
     category TEXT NOT NULL,
     points INTEGER NOT NULL
 )
-""")
+''')
 
-cursor.execute("""
+connection.execute('''
 CREATE TABLE IF NOT EXISTS challenge_participations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INTEGER NOT NULL,
-    challenge_id INTEGER NOT NULL,
-    status TEXT DEFAULT 'Joined',
-    FOREIGN KEY (student_id) REFERENCES students (id),
-    FOREIGN KEY (challenge_id) REFERENCES challenges (id)
+    challenge_id INTEGER NOT NULL
 )
-""")
+''')
 
-cursor.execute("""
+connection.execute('''
 CREATE TABLE IF NOT EXISTS badges (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INTEGER NOT NULL,
-    badge_name TEXT NOT NULL,
-    FOREIGN KEY (student_id) REFERENCES students (id)
+    badge_name TEXT NOT NULL
 )
-""")
-
-
-
+''')
 connection.commit()
 connection.close()
 

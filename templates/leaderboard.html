@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Leaderboard</title></head>
+<body>
+    <div style="text-align: center; margin-top: 50px;">
+        <h1>🏆 Eco Campus Leaderboard</h1>
+        <table border="1" style="margin: 0 auto; width: 60%; text-align: center; border-collapse: collapse;">
+            <tr style="background-color: #4CAF50; color: white; height: 40px;">
+                <th>Rank</th><th>Student Name</th><th>Eco Points</th><th>Badges</th>
+            </tr>
+            {% for student in students %}
+            <tr style="height: 35px;">
+                <td><strong>#{{ loop.index }}</strong></td><td>{{ student['name'] }}</td><td>{{ student['eco_points'] }}</td>
+                <td>
+                    {% for badge in all_badges %}
+                        {% if badge['student_id'] == student['id'] and badge['badge_name'] == 'High-Points' %}
+                            ⭐
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
