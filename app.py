@@ -585,3 +585,59 @@ def register():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    # ==========================================
+# MEMBER 3: LEADERBOARD ROUTE
+# ==========================================
+@app.route("/leaderboard")
+def leaderboard():
+    connection = get_db_connection()
+    
+    # Fetch students sorted by highest points
+    students = connection.execute(
+        "SELECT id, name, eco_points FROM students ORDER BY eco_points DESC"
+    ).fetchall()
+    
+    connection.close()
+
+    return render_template("leaderboard.html", students=students)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+    # ==========================================
+# MEMBER 3: CHALLENGES ROUTE
+# ==========================================
+@app.route("/challenges")
+def challenges():
+    connection = get_db_connection()
+    # Fetch all available challenges
+    challenges_data = connection.execute("SELECT * FROM challenges").fetchall()
+    connection.close()
+    
+    return render_template("challenges.html", challenges=challenges_data)
+# ==========================================
+# MEMBER 3: JOIN CHALLENGE ROUTE
+# ==========================================
+@app.route("/join_challenge/<int:challenge_id>", methods=["POST"])
+def join_challenge(challenge_id):
+    # Pretend Student 1 is logged in for testing
+    student_id = 1 
+    
+    connection = get_db_connection()
+    
+    # Prevent the student from joining the same challenge twice
+    existing = connection.execute(
+        "SELECT * FROM challenge_participations WHERE student_id = ? AND challenge_id = ?",
+        (student_id, challenge_id)
+    ).fetchone()
+
+    if not existing:
+        connection.execute(
+            "INSERT INTO challenge_participations (student_id, challenge_id) VALUES (?, ?)",
+            (student_id, challenge_id)
+        )
+        connection.commit()
+        
+    connection.close()
+    
+    # Send them back to the challenges page immediately
+    return redirect("/challenges")
