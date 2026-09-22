@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import sqlite3
 import os
 
+
 app = Flask(__name__)
 
 app.secret_key = "eco-campus-secret-key"
@@ -13,12 +14,11 @@ SESSION_TIMEOUT = timedelta(minutes=30)
 DATABASE = os.path.join(os.path.dirname(__file__), "database.db")
 
 
-
-
 def get_db_connection():
     connection = sqlite3.connect(DATABASE)
     connection.row_factory = sqlite3.Row
     return connection
+
 
 @app.before_request
 def check_session_timeout():
@@ -42,6 +42,7 @@ def check_session_timeout():
 @app.route("/")
 def home():
     return redirect(url_for("login"))
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -197,6 +198,8 @@ def login():
         return redirect(url_for("login"))
 
     return render_template("login.html")
+
+
 @app.route("/dashboard")
 def dashboard():
 
@@ -304,6 +307,7 @@ def eco_goal():
         progress=progress
     )
 
+
 @app.route("/profile")
 def profile():
 
@@ -326,6 +330,7 @@ def profile():
         return redirect(url_for("login"))
 
     return render_template("profile.html", student=student)
+
 
 @app.route("/profile/edit", methods=["GET", "POST"])
 def edit_profile():
@@ -469,6 +474,7 @@ def change_password():
 
     return render_template("change_password.html")
 
+
 @app.route("/profile/deactivate", methods=["POST"])
 def deactivate_account():
 
@@ -516,7 +522,6 @@ def logout():
     return redirect(url_for("login"))
 
 
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
@@ -536,22 +541,21 @@ def register():
             return redirect(url_for("register"))
 
         if len(password) < 8:
-           flash("Password must contain at least 8 characters.")
-           return redirect(url_for("register"))
+            flash("Password must contain at least 8 characters.")
+            return redirect(url_for("register"))
 
         if not any(char.isupper() for char in password):
             flash("Password must contain at least one uppercase letter.")
             return redirect(url_for("register"))
 
         if not any(char.islower() for char in password):
-          flash("Password must contain at least one lowercase letter.")
-        return redirect(url_for("register"))
+            flash("Password must contain at least one lowercase letter.")
+            return redirect(url_for("register"))
 
         if not any(char.isdigit() for char in password):
-          flash("Password must contain at least one number.")
-          return redirect(url_for("register"))
+            flash("Password must contain at least one number.")
+            return redirect(url_for("register"))
 
-        
         connection = get_db_connection()
 
         existing_student = connection.execute(
@@ -583,27 +587,24 @@ def register():
     return render_template("register.html")
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
-    # ==========================================
+# ==========================================
 # MEMBER 3: LEADERBOARD ROUTE
 # ==========================================
 @app.route("/leaderboard")
 def leaderboard():
     connection = get_db_connection()
-    
+
     # Fetch students sorted by highest points
     students = connection.execute(
         "SELECT id, name, eco_points FROM students ORDER BY eco_points DESC"
     ).fetchall()
-    
+
     connection.close()
 
     return render_template("leaderboard.html", students=students)
 
-if __name__ == "__main__":
-    app.run(debug=True)
-    # ==========================================
+
+# ==========================================
 # MEMBER 3: CHALLENGES ROUTE
 # ==========================================
 @app.route("/challenges")
@@ -612,18 +613,20 @@ def challenges():
     # Fetch all available challenges
     challenges_data = connection.execute("SELECT * FROM challenges").fetchall()
     connection.close()
-    
+
     return render_template("challenges.html", challenges=challenges_data)
+
+
 # ==========================================
 # MEMBER 3: JOIN CHALLENGE ROUTE
 # ==========================================
 @app.route("/join_challenge/<int:challenge_id>", methods=["POST"])
 def join_challenge(challenge_id):
     # Pretend Student 1 is logged in for testing
-    student_id = 1 
-    
+    student_id = 1
+
     connection = get_db_connection()
-    
+
     # Prevent the student from joining the same challenge twice
     existing = connection.execute(
         "SELECT * FROM challenge_participations WHERE student_id = ? AND challenge_id = ?",
@@ -636,8 +639,12 @@ def join_challenge(challenge_id):
             (student_id, challenge_id)
         )
         connection.commit()
-        
+
     connection.close()
-    
+
     # Send them back to the challenges page immediately
     return redirect("/challenges")
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
